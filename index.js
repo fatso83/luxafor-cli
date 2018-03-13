@@ -1,3 +1,7 @@
+#!/usr/bin/env node
+
+"use strict";
+
 const Luxafor = require("luxafor")();
 const _ = require("lodash");
 
