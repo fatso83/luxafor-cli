@@ -17,8 +17,9 @@ program
   .version(packageJson.version)
   .option("-c, --color <color|r,g,b|off>", "Example: `-c red`, `-c 255,0,255`")
   .option("-l, --list", "Lists available colors")
+  .option("-b, --blink <r,g,b>", "Blink a rgb color")
   .on("--help", () => {
-    console.log("luxafor-cli -c red ");
+    console.log("\nUsage: luxafor-cli -c red ");
   })
   .parse(process.argv);
 
@@ -42,12 +43,38 @@ if (program.list) {
 
 if (program.color) {
   setColor(program.color);
+} else if (program.blink) {
+  blinkRgbColor(program.blink);
 }
 
-function setColor(color, ...args) {
+function isRgb(color) {
+  return color.match(/^\d+,\d+,\d+$/);
+}
+
+function getRgb(color) {
+  return color.split(",").map(n => parseInt(n, 10));
+}
+
+function setColor(color) {
   Luxafor.init(function() {
-    Luxafor.setLuxaforColor(Luxafor.colors[color], function() {
-      console.log(`Set color to ${coloredColor(color)}`);
+    if (isRgb(color)) {
+      const [r, g, b] = getRgb(color);
+      Luxafor.setColor(r, g, b, function() {
+        console.log(`Set color to ${coloredColor(color)}`);
+      });
+    } else {
+      Luxafor.setLuxaforColor(Luxafor.colors[color], function() {
+        console.log(`Set color to ${coloredColor(color)}`);
+      });
+    }
+  });
+}
+
+function blinkRgbColor(color) {
+  Luxafor.init(function() {
+    const [r, g, b] = getRgb(color);
+    Luxafor.flashColor(r, g, b, function() {
+      console.log("Blinking set");
     });
   });
 }
