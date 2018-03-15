@@ -18,6 +18,7 @@ program
   .option("-c, --color <color|r,g,b|off>", "Example: `-c red`, `-c 255,0,255`")
   .option("-l, --list", "Lists available colors")
   .option("-b, --blink <r,g,b>", "Blink a rgb color")
+  .option("-v, --verbose", "Verbose output")
   .on("--help", () => {
     console.log("\nUsage: luxafor-cli -c red ");
   })
@@ -60,11 +61,11 @@ function setColor(color) {
     if (isRgb(color)) {
       const [r, g, b] = getRgb(color);
       Luxafor.setColor(r, g, b, function() {
-        console.log(`Set color to ${coloredColor(color)}`);
+        program.verbose && console.log(`Set color to ${coloredColor(color)}`);
       });
     } else {
       Luxafor.setLuxaforColor(Luxafor.colors[color], function() {
-        console.log(`Set color to ${coloredColor(color)}`);
+        program.verbose && console.log(`Set color to ${coloredColor(color)}`);
       });
     }
   });
