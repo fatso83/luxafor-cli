@@ -1,20 +1,26 @@
 # Control your Luxafor
+> Simple CLI for dispatching commands to your Luxafor
 
-```
-$ luxafor-cli
--c <command> <command arg>   command
--h                           Show help
-
-Commands and arguments:
-    off             Turn off Luxafor
-    color <color>   Set color
-    
-
-Colors: red,green,blue,cyan,magenta,yellow,white,off
-```
+Pull requests welcome
 
 ## usage
-`sudo luxafor-cli -c red`
+```
+$ luxafor-cli --help
+
+  Usage: luxafor-cli [options]
+
+  Options:
+
+    -V, --version                  output the version number
+    -c, --color <color|r,g,b|off>  Example: `-c red`, `-c 255,0,255`
+    -l, --list                     Lists available colors
+    -b, --blink <r,g,b>            Blink a rgb color
+    -v, --verbose                  Verbose output
+    -h, --help                     output usage information
+
+Usage: luxafor-cli -c red 
+
+```
 
 ## install
 ```
